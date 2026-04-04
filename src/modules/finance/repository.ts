@@ -1,6 +1,7 @@
 import prisma from "../../lib/prisma.js";
 import {
   createFinancialRecordType,
+  queryType,
   updateFinancialRecordType,
 } from "./schema.js";
 export const createFinancialRecordRepository = async (
@@ -37,5 +38,24 @@ export const deleteFinancialRecordRepository = async (id: string) => {
 export const getFinancialRecordRepository = async (id: string) => {
   return await prisma.financialRecord.findUnique({
     where: { id: id },
+  });
+};
+export const getFilteredFinancialRecordRepository = async (
+  queryData: queryType,
+) => {
+  return await prisma.financialRecord.findMany({
+    where: {
+      type: queryData.type,
+      category: queryData.category,
+      amount: {
+        gte: queryData.minAmount,
+        lte: queryData.maxAmount,
+      },
+      date: {
+        gte: queryData.minDate,
+        lte: queryData.maxDate,
+      },
+    },
+    orderBy: { date: "desc" },
   });
 };

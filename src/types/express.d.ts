@@ -19,4 +19,11 @@ declare global {
     }
   }
 }
+declare global {
+  namespace Express {
+    interface Request {
+      validatedQueryData?: unknown;
+    }
+  }
+}
 export {};

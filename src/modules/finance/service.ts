@@ -1,11 +1,13 @@
 import {
   createFinancialRecordRepository,
   deleteFinancialRecordRepository,
+  getFilteredFinancialRecordRepository,
   getFinancialRecordRepository,
   updateFinancialRecordRepository,
 } from "./repository.js";
 import {
   createFinancialRecordType,
+  queryType,
   updateFinancialRecordType,
 } from "./schema.js";
 
@@ -25,4 +27,9 @@ export const deleteFinancialRecordService = async (id: string) => {
 };
 export const getFinancialRecordService = async (id: string) => {
   return await getFinancialRecordRepository(id);
+};
+export const getFilteredFinancialRecordService = async (
+  queryData: queryType,
+) => {
+  return await getFilteredFinancialRecordRepository(queryData);
 };

@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
 import {
   createFinancialRecordType,
+  queryType,
   updateFinancialRecordType,
 } from "./schema.js";
 import {
   createFinancialRecordService,
   deleteFinancialRecordService,
+  getFilteredFinancialRecordService,
   getFinancialRecordService,
   updateFinancialRecordService,
 } from "./service.js";
@@ -41,5 +43,14 @@ export const getFinancialRecordController = async (
 ) => {
   const id = req.id as string;
   const financialRecord = await getFinancialRecordService(id);
+  res.status(200).json({ financialRecord: financialRecord });
+};
+export const getFilteredFinancialRecordController = async (
+  req: Request,
+  res: Response,
+) => {
+  const queryData = req.validatedQueryData as queryType;
+  console.log(queryData);
+  const financialRecord = await getFilteredFinancialRecordService(queryData);
   res.status(200).json({ financialRecord: financialRecord });
 };
