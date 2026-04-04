@@ -12,7 +12,6 @@ import {
 export const totalIncomeController = async (req: Request, res: Response) => {
   const id = "40e99aee-0f74-4381-95d1-a07b3407bace";
   const income = await totalIncomeService(id);
-  console.log("controller", income);
   res.status(200).json({ income: income });
 };
 export const totalExpenseController = async (req: Request, res: Response) => {

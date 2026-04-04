@@ -25,7 +25,6 @@ export const updateFinancialRecordController = async (
   const id = req.id as string;
   const inputData = req.validatedData as updateFinancialRecordType;
   const financialRecord = await updateFinancialRecordService(id, inputData);
-  console.log(financialRecord);
   res.status(200).json({ financialRecord: financialRecord });
 };
 export const deleteFinancialRecordController = async (
@@ -41,7 +40,6 @@ export const getFinancialRecordController = async (
   res: Response,
 ) => {
   const id = req.id as string;
-  console.log("controller", id);
   const financialRecord = await getFinancialRecordService(id);
   res.status(200).json({ financialRecord: financialRecord });
 };

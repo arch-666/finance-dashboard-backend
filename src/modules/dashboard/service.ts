@@ -8,24 +8,22 @@ import {
 
 export const totalIncomeService = async (id: string) => {
   const income = await totalIncomeRepository(id);
-  console.log(income);
   return income._sum.amount;
 };
 export const totalExpenseService = async (id: string) => {
   const expense = await totalExpenseRepository(id);
-  console.log(expense);
+
   return expense._sum.amount;
 };
 export const categoryGroupedBalanceService = async (id: string) => {
   const categoryWiseSum = await categoryGroupedBalanceRepository(id);
-  console.log(categoryWiseSum);
+
   return categoryWiseSum;
 };
 export const netBalanceService = async (id: string) => {
   const income = await totalIncomeRepository(id);
-  console.log(income);
   const expense = await totalExpenseRepository(id);
-  console.log(expense);
+
   return (income._sum.amount || 0) - (expense._sum.amount || 0);
 };
 export const monthlyTrendService = async (id: string) => {
@@ -51,9 +49,8 @@ export const recentTransactionService = async (id: string) => {
 
 export const transactionSummaryService = async (id: string) => {
   const income = await totalIncomeRepository(id);
-  console.log(income);
   const expense = await totalExpenseRepository(id);
-  console.log(expense);
+
   return {
     totalIncome: income._sum.amount || 0,
     totalExpense: expense._sum.amount || 0,
