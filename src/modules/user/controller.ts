@@ -14,10 +14,10 @@ export const createUserController = async (req: Request, res: Response) => {
 export const getUserController = async (req: Request, res: Response) => {
   const id = req.id as string;
   const user = await getUserService(id);
-  res.status(201).json({ user: user });
+  res.status(200).json({ user: user });
 };
 
 export const getAllUserController = async (req: Request, res: Response) => {
   const user = await getAllUserService();
-  res.status(201).json({ user: user });
+  res.status(200).json({ user: user });
 };

@@ -15,10 +15,10 @@ export const authMiddleware =
         where: { id: tokenData.user_id },
       });
       if (!user) {
-        return res.status(401).json({ message: "user doesn't exist" });
+        return res.status(404).json({ message: "user doesn't exist" });
       }
       if (!role.includes(user.role)) {
-        res.status(401).json({ message: "you are not authorized for this" });
+        res.status(403).json({ message: "you are not authorized for this" });
       }
       req.validatedUserData = {
         userid: user?.id,
@@ -28,6 +28,6 @@ export const authMiddleware =
       req.id = user.id;
       next();
     } catch (err) {
-      return res.status(401).json({ error: err });
+      return res.status(400).json({ error: err });
     }
   };

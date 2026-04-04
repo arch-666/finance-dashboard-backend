@@ -16,7 +16,7 @@ export const createFinancialRecordController = async (
 ) => {
   const inputData = req.validatedData as createFinancialRecordType;
   const financialRecord = await createFinancialRecordService(inputData);
-  res.status(201).json({ financialRecord: financialRecord });
+  res.status(200).json({ financialRecord: financialRecord });
 };
 export const updateFinancialRecordController = async (
   req: Request,
@@ -26,7 +26,7 @@ export const updateFinancialRecordController = async (
   const inputData = req.validatedData as updateFinancialRecordType;
   const financialRecord = await updateFinancialRecordService(id, inputData);
   console.log(financialRecord);
-  res.status(201).json({ financialRecord: financialRecord });
+  res.status(200).json({ financialRecord: financialRecord });
 };
 export const deleteFinancialRecordController = async (
   req: Request,
@@ -34,7 +34,7 @@ export const deleteFinancialRecordController = async (
 ) => {
   const id = req.id as string;
   const financialRecord = await deleteFinancialRecordService(id);
-  res.status(201).json({ financialRecord: financialRecord });
+  res.status(200).json({ financialRecord: financialRecord });
 };
 export const getFinancialRecordController = async (
   req: Request,
@@ -43,5 +43,5 @@ export const getFinancialRecordController = async (
   const id = req.id as string;
   console.log("controller", id);
   const financialRecord = await getFinancialRecordService(id);
-  res.status(201).json({ financialRecord: financialRecord });
+  res.status(200).json({ financialRecord: financialRecord });
 };
