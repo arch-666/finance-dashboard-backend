@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import {
   categoryGroupedBalanceController,
   monthlyTrendController,
@@ -9,20 +9,13 @@ import {
   transactionSummaryController,
 } from "./controller.js";
 import { authMiddleware } from "../../middleware/auth.js";
-import { validaterParamsMiddleware } from "../../middleware/param_validator.js";
 const dashboardRouter = express.Router();
 dashboardRouter.get(
   "/income",
   authMiddleware(["ADMIN", "ANALYST"]),
   totalIncomeController,
 );
-dashboardRouter.get(
-  "/check",
-  authMiddleware(["VIEWER", "ADMIN", "ANALYST"]),
-  (req: Request, res: Response) => {
-    res.status(201).json({ hi: "hi" });
-  },
-);
+
 dashboardRouter.get(
   "/expense",
   authMiddleware(["ADMIN", "ANALYST"]),
