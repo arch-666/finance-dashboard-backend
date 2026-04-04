@@ -1,14 +1,8 @@
-import { compareHash, hasher } from "../../utils/hash.js";
-import { tokenizer, verifier } from "../../utils/jwt.js";
-import { loginUserRepository, registerUserRepository } from "./repository.js";
-import { loginUserType, registerUserType } from "./schema.js";
+import { compareHash } from "../../utils/hash.js";
+import { tokenizer } from "../../utils/jwt.js";
+import { loginUserRepository } from "./repository.js";
+import { loginUserType } from "./schema.js";
 
-export const registerUserService = async (data: registerUserType) => {
-  const password = data.password;
-  const hashedPassword = await hasher(password);
-  data.password = hashedPassword;
-  return await registerUserRepository(data);
-};
 export const loginUserService = async (data: loginUserType) => {
   const user = await loginUserRepository(data);
   if (!user) {

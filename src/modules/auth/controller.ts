@@ -1,12 +1,7 @@
 import { Request, Response } from "express";
-import { loginUserType, registerUserType } from "./schema.js";
-import { loginUserService, registerUserService } from "./service.js";
+import { loginUserType } from "./schema.js";
+import { loginUserService } from "./service.js";
 
-export const registerUserController = async (req: Request, res: Response) => {
-  const inputData = req.validatedData as registerUserType;
-  const user = await registerUserService(inputData);
-  res.status(201).json({ user: user });
-};
 export const loginUserController = async (req: Request, res: Response) => {
   const inputData = req.validatedData as loginUserType;
   const token = await loginUserService(inputData);
