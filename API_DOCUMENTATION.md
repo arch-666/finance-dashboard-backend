@@ -721,12 +721,14 @@ JWT_SECRET=your_secret_key_here
 
 ---
 
-## 🚀 Development Server
+## 🚀 Steps to Start Server
 
 ```bash
 npm install
 npx prisma migrate dev
-npm run dev
+npm run build
+npm run seedAdmin
+npm run start
 ```
 
 Server runs on `http://localhost:3000`
