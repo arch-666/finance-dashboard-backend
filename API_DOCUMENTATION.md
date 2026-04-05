@@ -107,6 +107,52 @@ curl -X POST http://localhost:3000/api/v1/user/create \
   }'
 ```
 
+✏️ Update User
+
+Endpoint: PATCH /user/:id
+
+Authentication: Required (JWT)
+Role: ADMIN only
+Description: Update an existing user's details (all fields optional)
+🔹 URL Parameters
+id - User UUID (required)
+🔹 Request Body (All Optional)
+{
+  "email": "string (optional)",
+  "name": "string (optional)",
+  "password": "string (optional)",
+  "role": "ADMIN | ANALYST | VIEWER (optional)",
+  "isActive": "boolean (optional)"
+}
+🔹 Response
+{
+  "user": {
+    "id": "uuid",
+    "email": "updated@example.com",
+    "name": "Updated Name",
+    "role": "ANALYST",
+    "password": "$2b$10$.Kn7f3y9g9uULR",
+    "isActive": true,
+    "createdAt": "2026-04-05T06:28:21.978Z",
+  }
+}
+🔹 Status Codes
+200 - User updated successfully
+400 - Bad Request (validation error)
+403 - Forbidden (insufficient permissions)
+404 - User not found
+500 - Server Error
+🔹 Example
+curl -X PATCH http://localhost:3000/api/v1/user/4422eb92-d2c8-46a4-91d3-e3e8f7ed89bb \
+  -H "Content-Type: application/json" \
+  -b cookies.txt \
+  -d '{
+    "name": "Updated User",
+    "role": "ANALYST",
+    "isActive": true
+  }
+
+
 #### Get All Users
 **Endpoint:** `GET /user/all`
 - **Authentication:** Required (JWT)
