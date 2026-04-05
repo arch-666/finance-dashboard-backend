@@ -241,14 +241,6 @@ curl -X POST http://localhost:3000/api/v1/financialRecord \
 **URL Parameters:**
 - `id` - Record UUID (required)
 
-**Query Parameters (Optional Filters):**
-- `type` - "INCOME" or "EXPENSE"
-- `category` - Filter by category name
-- `minDate` - Minimum date (ISO 8601)
-- `maxDate` - Maximum date (ISO 8601)
-- `minAmount` - Minimum amount
-- `maxAmount` - Maximum amount
-
 **Response:**
 ```json
 {
@@ -495,14 +487,7 @@ curl -X GET http://localhost:3000/api/v1/dashboard/netBalance \
 
 **Response:**
 ```json
-{
-  "transactionSummary": {
-    "totalTransactions": 150,
-    "totalIncome": 50000.75,
-    "totalExpense": 25000.50,
-    "netBalance": 25000.25
-  }
-}
+{"transactionSummary":{"totalIncome":5507,"totalExpense":0,"netBalance":5507}}
 ```
 
 **Status Codes:**
@@ -558,16 +543,7 @@ curl -X GET http://localhost:3000/api/v1/dashboard/recent \
 
 **Response:**
 ```json
-{
-  "monthlyTrend": [
-    {
-      "month": "2026-04",
-      "income": 15000.00,
-      "expense": 8000.50,
-      "netBalance": 6999.50
-    }
-  ]
-}
+{"monthlyTrend":{"3":{"income":5507,"expense":0}}}
 ```
 
 **Status Codes:**
