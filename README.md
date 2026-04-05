@@ -1,68 +1,106 @@
-🚀 FinTrack API – Role-Based Finance Dashboard Backend
+# 🚀 FinTrack API – Role-Based Finance Dashboard Backend
 
-A backend system for managing financial data with Role-Based Access Control (RBAC) and dashboard analytics.
+A robust backend system for managing financial data with **Role-Based Access Control (RBAC)** and comprehensive dashboard analytics.
 
-📌 Overview
+---
 
-This project simulates a company-level finance dashboard backend where financial records are shared and accessed based on user roles.
+## 📌 Overview
 
-Core Features
-Financial record management (CRUD)
-Role-based permissions (Viewer, Analyst, Admin)
-Dashboard analytics (summary, trends, grouping)
-Secure authentication using JWT
-⚙️ Tech Stack
-Node.js
-TypeScript
-Express.js
-Prisma ORM
-SQLite
-Zod (validation)
-JWT (authentication)
-🏗️ Project Structure
+This project simulates an enterprise-grade finance dashboard backend where financial records are securely shared and accessed based on user roles.
+
+### ✨ Core Features
+
+- 💳 **Financial Record Management** – Full CRUD operations
+- 🔐 **Role-Based Permissions** – Viewer, Analyst, Admin roles
+- 📊 **Dashboard Analytics** – Summaries, trends, category insights
+- 🛡️ **Secure Authentication** – JWT-based with HTTP-only cookies
+
+---
+
+## ⚙️ Tech Stack
+
+| Technology | Purpose |
+|-----------|---------|
+| **Node.js** | Runtime |
+| **TypeScript** | Type Safety |
+| **Express.js** | REST Framework |
+| **Prisma ORM** | Database Layer |
+| **SQLite** | Database |
+| **Zod** | Schema Validation |
+| **JWT** | Authentication |
+
+---
+
+## 🏗️ Project Structure
+
+```
 src/
-  modules/
-    user/
-    financialRecord/
-    dashboard/
-    auth/
-  middleware/
-  utils/
-  types/
-  prisma/
-🔐 Authentication
+├── modules/
+│   ├── user/
+│   ├── financialRecord/
+│   ├── dashboard/
+│   └── auth/
+├── middleware/
+├── utils/
+├── types/
+└── prisma/
+```
 
-All endpoints (except login) require a JWT token via HTTP-only cookie.
+---
 
+## 🔐 Authentication
+
+All endpoints (except login) require a **JWT token** via HTTP-only cookie.
+
+```
 Cookie: access_token=<JWT_TOKEN>
-📚 API Documentation
-Base URL
-http://localhost:3000/api/v1
-🔑 Authentication
-POST /auth/login
+```
 
+---
+
+## 📚 API Endpoints
+
+### Base URL
+```
+http://localhost:3000/api/v1
+```
+
+---
+
+### 🔑 Authentication
+
+#### `POST /auth/login`
 Authenticate user and issue JWT token via cookie.
 
-Request
+**Request:**
+```json
 {
   "email": "string",
   "password": "string"
 }
-Response
+```
+
+**Response:**
+```json
 {
   "message": "login successful"
 }
-👤 User Management (ADMIN only)
-POST /user/create
+```
 
+---
+
+### 👤 User Management (ADMIN Only)
+
+#### `POST /user/create`
 Create a new user with a specific role.
+- Admin controls system access
+- Used for onboarding users
 
-Admin controls system access
-Used for onboarding users
-PATCH /user/:id
-
+#### `PATCH /user/:id`
 Update user details partially.
 
+**Request:**
+```json
 {
   "email": "string",
   "name": "string",
@@ -70,109 +108,125 @@ Update user details partially.
   "role": "ADMIN | ANALYST | VIEWER",
   "isActive": "boolean"
 }
-Supports partial updates
-Password is never returned
-GET /user/all
+```
 
-Fetch all users.
+- Supports partial updates
+- Password is never returned
 
-Used for admin management
-GET /user/:id
+#### `GET /user/all`
+Fetch all users (admin management)
 
-Fetch user by ID.
+#### `GET /user/:id`
+Fetch user by ID (inspection/debugging)
 
-Used for inspection/debugging
-💰 Financial Records
-POST /financialRecord
+---
 
-Create a financial entry.
+### 💰 Financial Records
 
-Represents income or expense
-GET /financialRecord/:id
+#### `POST /financialRecord`
+Create a financial entry (income or expense)
 
-Fetch a single record.
+#### `GET /financialRecord/:id`
+Fetch a single record
 
-GET /financialRecord/filter
+#### `GET /financialRecord/filter`
+Filter records dynamically
 
-Filter records dynamically.
+**Supports:**
+- Date range filtering
+- Amount range filtering
+- Category/type filtering
+- Perfect for analytics & dashboards
 
-Supports:
+#### `PATCH /financialRecord/:id`
+Update a record (Admin only)
+- Ensures data integrity
 
-Date range
-Amount range
-Category / type
+#### `DELETE /financialRecord/:id`
+Delete a record (Admin only, hard delete)
 
-Used for analytics & dashboards
+---
 
-PATCH /financialRecord/:id
+### 📊 Dashboard Analytics
 
-Update a record.
-
-Admin only
-Ensures data integrity
-DELETE /financialRecord/:id
-
-Delete a record.
-
-Hard delete
-Admin only
-📊 Dashboard
-GET /dashboard/summary
+#### `GET /dashboard/summary` ⭐
+**Main dashboard endpoint**
 
 Returns:
+- Total income
+- Total expense
+- Net balance
 
-Total income
-Total expense
-Net balance
+#### `GET /dashboard/income` & `/dashboard/expense`
+Aggregated totals (used for charts)
 
-👉 Main dashboard endpoint
+#### `GET /dashboard/monthlyTrend`
+Month-wise grouped data (visualize trends)
 
-GET /dashboard/income & /expense
-Aggregated totals
-Used for charts
-GET /dashboard/monthlyTrend
-Month-wise grouped data
-Helps visualize trends
-GET /dashboard/categoryGroupedBalance
-Group by category
-Useful for insights
-GET /dashboard/recent
-Latest transactions
-Activity feed
-⚖️ Assumptions
-Financial records are global (not user-specific)
-Only ADMIN can modify data
-JWT stored in HTTP-only cookies
-No pagination (small dataset assumption)
-Dates use ISO format
-⚙️ Trade-offs
-1. Global Data Model
-✅ Simpler design
-❌ Not scalable for multi-user ownership
-2. No Pagination
-✅ Faster implementation
-❌ Poor scalability for large data
-3. Hard Deletes
-✅ Simple logic
-❌ No recovery / audit trail
-4. No Refresh Tokens
-✅ Easy auth implementation
-❌ Less secure long sessions
-5. Admin-Only Writes
-✅ Strong consistency
-❌ Reduced flexibility
-📦 Environment Variables
+#### `GET /dashboard/categoryGroupedBalance`
+Group by category (useful for insights)
+
+#### `GET /dashboard/recent`
+Latest transactions (activity feed)
+
+---
+
+## ⚖️ Design Assumptions
+
+| Assumption | Details |
+|-----------|---------|
+| **Global Data Model** | Financial records are shared across users, not user-specific |
+| **Write Access** | Only ADMIN can modify data |
+| **Auth Storage** | JWT stored in HTTP-only cookies |
+| **Data Scale** | Small dataset (no pagination needed) |
+| **Date Format** | ISO 8601 standard |
+
+---
+
+## ⚙️ Trade-offs Analysis
+
+| Trade-off | Pros | Cons |
+|-----------|------|------|
+| **Global Data Model** | ✅ Simpler design | ❌ Not scalable for multi-user ownership |
+| **No Pagination** | ✅ Faster implementation | ❌ Poor scalability for large datasets |
+| **Hard Deletes** | ✅ Simple logic | ❌ No recovery / audit trail |
+| **No Refresh Tokens** | ✅ Easy auth implementation | ❌ Less secure long sessions |
+| **Admin-Only Writes** | ✅ Strong consistency | ❌ Reduced flexibility |
+
+---
+
+## 📦 Environment Variables
+
+```bash
 DATABASE_URL=sqlite:./dev.db
 JWT_SECRET=your_secret_key
-🚀 Setup
+```
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# Install dependencies
 npm install
+
+# Run database migrations
 npx prisma migrate dev
+
+# Build the project
 npm run build
+
+# Seed admin user
 npm run seedAdmin
+
+# Start the server
 npm run start
+```
 
-👉 Shows engineering thinking, not just coding
+> 👉 **This project demonstrates engineering thinking, not just coding skills**
 
-👨‍💻 Author
+---
 
-Hardik Gupta
+## 👨‍💻 Author
+
+**Hardik Gupta**
