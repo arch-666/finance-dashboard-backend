@@ -20,6 +20,9 @@ export const authMiddleware =
       if (!role.includes(user.role)) {
         res.status(403).json({ message: "you are not authorized for this" });
       }
+      if (!user.isActive) {
+        return res.status(403).json({ message: "User is inActive" });
+      }
       req.validatedUserData = {
         userid: user?.id,
         email: user?.email,
