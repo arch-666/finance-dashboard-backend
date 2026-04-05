@@ -1,5 +1,5 @@
 import prisma from "../../lib/prisma.js";
-import { createUserType } from "./schema.js";
+import { changeUserStatusType, createUserType } from "./schema.js";
 
 export const createUserRepository = async (data: createUserType) => {
   return await prisma.user.create({
@@ -9,6 +9,21 @@ export const createUserRepository = async (data: createUserType) => {
       password: data.password,
       role: data.role,
       isActive: data.isActive,
+    },
+  });
+};
+export const changeUserStatusRepository = async (
+  id: string,
+  data: changeUserStatusType,
+) => {
+  return await prisma.user.update({
+    where: { id: id },
+    data: {
+      isActive: data.isActive,
+      email: data.email,
+      name: data.name,
+      role: data.role,
+      password: data.password,
     },
   });
 };

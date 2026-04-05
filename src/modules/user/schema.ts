@@ -7,3 +7,6 @@ export const createUserSchema = z.object({
   isActive: z.boolean(),
 });
 export type createUserType = z.infer<typeof createUserSchema>;
+
+export const changeUserStatusSchema = createUserSchema.partial();
+export type changeUserStatusType = z.infer<typeof changeUserStatusSchema>;
